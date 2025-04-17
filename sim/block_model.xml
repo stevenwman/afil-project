@@ -1,0 +1,30 @@
+<mujoco model="block_control">
+  <!-- Set up configuration -->
+  <compiler angle="radian" />
+  <!-- Specify simulation timestep and gravity vector -->
+  <option timestep="0.01" gravity="0 0 -9.81" integrator="implicit"/>
+
+  <asset>
+    <texture name="checker" type="2d" builtin="checker" width="512" height="512"
+             rgb1="1 1 1" rgb2="0 0 0"/>
+    <material name="chess_mat" texture="checker" texrepeat="10 10"/>
+  </asset>
+  
+  <worldbody>
+    <!-- Floor geom to serve as a background for visual reference -->
+    <geom name="floor" type="plane" pos="0 0 0" size="5 5 0.1" material="chess_mat"/>
+    
+    <!-- Define the block body -->
+    <body name="block" pos="0 0 0">
+      <!-- Joint for translation along x -->
+      <joint name="slider_x" type="slide" pos="0 0 0" axis="1 0 0"/>
+      <!-- Joint for translation along z -->
+      <joint name="slider_z" type="slide" pos="0 0 0" axis="0 0 1"/>
+      <!-- Joint for rotation about y (theta) -->
+      <joint name="hinge_y" type="hinge" pos="0 0 0" axis="0 1 0"/>
+      
+      <geom mass="1" name="block_geom" type="box" size="0.2 0.05 0.1" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+
+</mujoco>
